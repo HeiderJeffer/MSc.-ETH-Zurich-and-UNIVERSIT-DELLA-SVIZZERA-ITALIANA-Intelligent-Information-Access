@@ -1,17 +1,12 @@
-<img src="./images/media/image1.png"
-style="width:6.5in;height:3.65486in" />
+# <span class="smallcaps">UNIVERSITÀ DELLA SVIZZERA ITALIANA</span>
 
-<span class="smallcaps">UNIVERSITÀ DELLA SVIZZERA ITALIANA</span>
+# FACULTY OF COMPUTER SCIENCE
 
-FACULTY OF COMPUTER SCIENCE
+# Master in Artificial Intelligence
 
-Master in Artificial Intelligence
+# Topic: Intelligent Information Access - Question Answering
 
-Topic: Intelligent Information Access - Question Answering
-
-By Heider Jeffer
-
-14 December - 20 December 2014
+By Heider Jeffer - 14 December - 20 December 2014
 
 Instructor: Professor Fabio
 
