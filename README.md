@@ -12,6 +12,13 @@ Instructor: Professor Fabio
 
 Assistant: Dr. Robert Gambera
 
+ <body>
+<img src = "https://github-vistors-counter.onrender.com/github?username=https://github.com/HeiderJeffer/Intelligent-Information-Access/edit/main/README.md" alt = "Visitors-Counter"/>
+</body>
+
+
+
+
 # Question Answering
 
 IR techniques have proven quite successful at a location within large
