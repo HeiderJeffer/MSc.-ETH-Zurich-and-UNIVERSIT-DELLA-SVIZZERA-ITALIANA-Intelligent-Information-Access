@@ -4,9 +4,13 @@
 
 # Master in Artificial Intelligence
 
-# Topic: Intelligent Information Access - Question Answering
+# Topic: Intelligent Information Access - Question Answering \[2014\]
 
-By Heider Jeffer - 14 December - 20 December 2014
+By Heider Jeffer
+
+Instructor: Mehdi Jazayeri
+
+Assistant: Sasa Nesic
 
 Instructor: Professor Fabio
 
