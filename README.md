@@ -1,8 +1,8 @@
-# <span class="smallcaps">UNIVERSITÀ DELLA SVIZZERA ITALIANA</span>
+# <span class="smallcaps">ETH Zurich and UNIVERSITÀ DELLA SVIZZERA ITALIANA</span>
 
 # FACULTY OF COMPUTER SCIENCE
 
-# Master in Artificial Intelligence
+# MSc. in Artificial Intelligence
 
 # Topic: Intelligent Information Access - Question Answering \[2014\]
 
