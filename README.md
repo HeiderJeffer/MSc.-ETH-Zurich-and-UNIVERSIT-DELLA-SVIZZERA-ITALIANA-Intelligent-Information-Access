@@ -1,167 +1,88 @@
-# <span class="smallcaps">MSc. ETH Zurich and UNIVERSITÀ DELLA SVIZZERA ITALIANA</span>
+**MSc. ETH Zurich and Università della Svizzera italiana**  
+**Faculty of Computer Science**  
+**MSc. in Artificial Intelligence**  
 
-# FACULTY OF COMPUTER SCIENCE
+**Topic: Intelligent Information Access - Question Answering [2014]**  
+**Author: Heider Jeffer**  
 
-# MSc. in Artificial Intelligence
+**Instructor: Mehdi Jazayeri**  
+**Assistant: Sasa Nesic**  
 
-# Topic: Intelligent Information Access - Question Answering \[2014\]
+**Instructor: Professor Fabio**  
+**Assistant: Dr. Robert Gambera**
 
-By Heider Jeffer
+---
 
-Instructor: Mehdi Jazayeri
+### Visitors-Counter
 
-Assistant: Sasa Nesic
+#### Question Answering
 
-Instructor: Professor Fabio
+Information retrieval (IR) techniques have proven effective at locating relevant documents within large collections based on user queries. However, users often seek brief answers to specific questions rather than entire documents. Examples of such queries include:
 
-Assistant: Dr. Robert Gambera
+- "How old is the president of the United States?"
+- "Who was the second person on the moon?"
+- "When was the storming of the Bastille?"
 
- <body>
-<img src = "https://github-vistors-counter.onrender.com/github?username=https://github.com/HeiderJeffer/Intelligent-Information-Access/edit/main/README.md" alt = "Visitors-Counter"/>
-</body>
+Recent research projects have focused on developing computational techniques for answering these types of questions by extracting brief passages directly from texts. These projects aim to handle not only short, fact-based questions but also more complex queries requiring detailed answers, such as descriptions of events, object comparisons, discussions, and opinions.
 
+The systems developed in these projects typically follow a standard structure. They generate a query from the user's question, perform IR to locate document segments likely to contain the answer, and pinpoint the most probable answer within these segments. The primary difference among these systems lies in their approach to pinpointing the answer.
 
+A **pure IR approach** identifies segments that best match the query and returns them as the answer. The challenge here is to make the segments small enough to be concise answers while still being indexable.
 
+A **pure Natural Language Processing (NLP) approach** matches the parsed and/or semantically interpreted questions against parsed and/or semantically interpreted sentences in candidate documents. The challenge is to perform parsing, interpretation, and matching quickly enough to be practical, given the large volumes of text.
 
-# Question Answering
+Effectively answering short questions thus requires a combination of IR and NLP techniques. IR techniques narrow down the set of likely candidate segments, while NLP techniques handle the complexities of language, such as paraphrasing and inference.
 
-IR techniques have proven quite successful at a location within large
-collections of documents for the user query. Often, however, the user
-wants not whole documents but brief answers to specific questions:
+#### Question Types
 
-How old is the president of the United States? Who was the second person
-on the moon? When was the storming of the Bastille? Recently several
-search projects have investigated the computational techniques needed
-for effective performance at this level of granularity focusing on the
-questions that can be answered in few words taken as a passage directly
-from a single text left aside, for the answering of longer more complex
-answers, such as ( stories about events, description of objects, compare
-and contracts discussions, arguments of opinions ,,, etc ).
+Questions can be categorized to facilitate different processing and answer formats. Examples include:
 
-The systems being built in these projects exhibit a fairly standard
-structure, all create a query from the user's questions, perform IR with
-query to locate (segments of ) documents likely to contain an answer,
-and then pinpoint the most likely answer within candidate documents, the
-most common difference of approach in the pinpointing.
+- **FACTOID:** "How far is it from Earth to the moon?"
+- **LIST:** "List the names of chewing gums."
+- **DEFINITION:** "Who is Vlad the Impaler?"
+- **RELATIONSHIP:** "What is the connection between Trotsky and Lenin?"
+- **SUPERLATIVE:** "What is the largest city on Earth?"
+- **YES OR NO:** "Is Saddam Hussein alive?"
+- **OPINION:** "What do most Americans think of gun control?"
+- **CAUSE AND EFFECT:** "Why did Iraq invade Kuwait?"
 
-A (pure IR) approach would segments that best match the query, and
-return them as an answer, the change here would be (to make it so small
-as to be just an answer-sized but still long enough to be indexable).
+#### Answer Types
 
-A (pure NLP) approach would be to match the parse and/or semantic
-interpretation of the questions against the parse and/or semantic
-interpretation of each sentence in the candidate answer containing
-documents and return the best matches, the challenge here would be (to
-perform parsing, interpretation and matching fast enough to be
-practical, given argue volumes of the text to be handled ).
+The type of answer sought by the question can be classified as follows:
 
-Answering short questions thus becomes a problem of finding the best
-combination of word-level (IR) and syntactic/semantic-level (NLP)
-techniques, the former to produce as short a set of likely candidate
-segments as possible because languages allow paraphrasing and inference,
-however, working out the details is not entirely straightforward.
+- **PERSON:** "Who?"
+- **PLACE:** "Where?"
+- **DATE:** "When?"
+- **NUMBER:** "How many?"
+- **EXPLANATION:** "Why?"
+- **METHOD:** "How?"
 
-# Question Type
+These answer types are closely tied to the categories recognized by the system’s named entity recognizer.
 
-An idiomatic categorization of questions for porpoises of distinguishing
-between different processioning and/or answer formats, eg. TREC2003
+#### Question Focus and Topic
 
-1.  FACTOID: “How many far is it from Earth to the moon? ”
+- **Question Focus:** The specific property or entity being sought by the question. For example, in "What is the population of Russia?" the focus is "population."
+- **Question Topic:** The broader object or event the question is about. For example, in "What is the height of the Tower of Babel?" the topic is "Tower of Babel."
 
-2.  LIST: “List the names of chewing gums “ 3.DEFINITION: “Who is Voled
-    the impaler? “
+#### Harder Questions
 
-3.  RELATIONSHIP: ”What is the connection between Trotsky & Lenin ?”
+Answering factoid questions is relatively straightforward. More challenging tasks involve answering questions where the answers are fluid and require synthesizing information from multiple sources over time. Examples include:
 
-4.  SUPPER RELATIVE: “What is the largest city on the earth ?”
+- "Who is Hannibal?"
+- "Who is Nebuchadnezzar?"
 
-5.  YES OR NO: ”Is Saddam Hussein Alive ?”
+#### Web and Question Answering
 
-6.  OPINION: “What do most Americans think of gun control ?”
+In TREC (Text Retrieval Conference) and many commercial applications, retrieval is performed against a small, closed collection of texts. The diversity of expression on the web means that popular factoids are likely to be expressed in many different ways. Therefore, leveraging the web to match question formulations can be effective.
 
-7.  CAUSE OF EFFECT: “Why did Iraq invade Kuwait?”
+#### The TREC QA Task
 
-# Answer Type
+QA encompasses a range of activities from simple yes/no responses to presenting complex results synthesized from multiple data sources. The TREC task focused on returning text snippets from a large corpus of newspaper articles in response to fact-based short answer questions such as "How many calories are in one liter of milk?"
 
-The classes of the object sought by the question, eg. :
+The task was restricted to closed-class questions, but the subject domain was unconstrained as the document set comprised newspaper articles.
 
-1.  PERSON: ( “ From”, “Who?” )
+#### QA Test Collection
 
-2.  PLACES: ( “From”, “Where?” )
+TREC has improved document retrieval performance by creating appropriate test collections for system development. Building such collections is time-consuming and expensive. One goal of the QA track was to create a reusable QA test collection. However, the judgment sets produced by assessors do not constitute a reusable test collection because the entire answer string is judged. Different QA runs rarely return exactly the same answer strings, making it difficult to determine automatically if differences are significant regarding answer correctness.
 
-3.  DATE: (“From”, “When?” )
-
-4.  NUMBER:( “From”,” How many ?” )
-
-5.  EXPLANATION:(“From”,” Why?” )
-
-6.  METHODS:(“From”, “How?”)
-
-“Answer types are usually tied intimately to the classes recognized by
-the system’s named entity recognizer.”
-
-# Question Focus
-
-The property or entity that is being sought by the question,e.g. “In
-what state is the Code of Hammurabi ?”
-
-“What is the population of Russia ?”
-
-# Question Topic
-
-The object (person, place, …. ), or event that the question is about,
-the question might be about a property of the topic, which will be the
-question focus, e.g. “What is the height of the Tower of Babel ?”, the
-focus, Tower of Babel, is the topic.
-
-# Harder Questions
-
-Factoid questions answering is quite simple, a more interesting task is
-one where the answers are fluid and depend on the fusion of the material
-from disparate texts over time. e.g. Who is Hannibal? Who is
-Nebuchadnezzar ?
-
-# Web and Q.A
-
-In TREC (the text retrieval conference) (and most commercial
-applications), retrieval is performed against a smallish closed
-collection of texts, the diversity of creativity in how people express
-themselves necessitates all that works to bring the question and the
-answer texts together, but on the Web popular factoids are likely to be
-expressed in a very large number of different ways, at least of a few of
-which will likely match the way the question was asked, so why not just
-grep (or agree) the web using all price of the original question.
-
-# The TREC QA TASK
-
-QA covers a broad of activities from simple (yes/no) responses to
-(true/false) questions to the (presentation) of complex results
-synthesized. From multiple data sources, the specific task in the TREC
-track was to return text snippets drawn from a large corpus of newspaper
-articles in response to fact-based short answer questions such as “How
-many calories are there in one liter of milk?
-
-“The TREC task was restricted in that only closed-class questions were
-used, yet the subject domain was essentially unconstrained since the
-documents set were newspaper articles.
-
-# Q.A Test Collection
-
-The primary way TREC has been successful in improving documents
-retrieval performance is by (creating appropriate test collections for
-researchers to use when developing their systems ) while creating a
-large collection can be (time- consuming) and expensive ,one of the Rey
-goals of the QA track was to build a reusable QA test collection that is
-to devise a means to evaluate a QA run that uses the same document and
-question sets but not among the runs judged by the assumes
-,unfortunately, the judgment sets produced by the assessors for the TREC
-, QA track do not constitute a reusable test collection because the unit
-that is judged is the entire answer string, different QA runs very
-seldom return exactly the same the same answer strings and it’s quite
-difficult to determine automatically whether the difference between a
-new string and judged string is significant with respect to the
-correctness of the answer , to an approximate solution to the problemist
-created a set of Perl string-matching patterns from the set strings that
-the seasons judged correct ,An answer string that matches any pattern
-for its question is marked correct ,an answer string matches any pattern
-for its questions is marked correct ,and marked in correct otherwise.
+To approximate a solution, a set of Perl string-matching patterns was created from judged correct strings. An answer string matching any pattern for its question is marked correct, otherwise, it is marked incorrect.
