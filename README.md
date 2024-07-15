@@ -11,78 +11,198 @@
 **Instructor: Professor Fabio**  
 **Assistant: Dr. Robert Gambera**
 
----
+Let's break down the different sections of the provided research topic and write Python code to demonstrate each concept with an example.
 
 ### Visitors-Counter
+We'll start by creating a simple visitors counter using Python. This counter will increment each time a visitor (simulated here) "visits" the website.
 
-#### Question Answering
+```python
+class VisitorsCounter:
+    def __init__(self):
+        self.count = 0
 
-Information retrieval (IR) techniques have proven effective at locating relevant documents within large collections based on user queries. However, users often seek brief answers to specific questions rather than entire documents. Examples of such queries include:
+    def visit(self):
+        self.count += 1
+        return self.count
 
-- "How old is the president of the United States?"
-- "Who was the second person on the moon?"
-- "When was the storming of the Bastille?"
+# Example usage
+counter = VisitorsCounter()
+print(f"Visitor 1: {counter.visit()}")  # Visitor 1: 1
+print(f"Visitor 2: {counter.visit()}")  # Visitor 2: 2
+print(f"Visitor 3: {counter.visit()}")  # Visitor 3: 3
+```
 
-Recent research projects have focused on developing computational techniques for answering these types of questions by extracting brief passages directly from texts. These projects aim to handle not only short, fact-based questions but also more complex queries requiring detailed answers, such as descriptions of events, object comparisons, discussions, and opinions.
+### Question Answering
+We'll create a basic example using a predefined set of questions and answers. The system will answer questions based on keyword matching.
 
-The systems developed in these projects typically follow a standard structure. They generate a query from the user's question, perform IR to locate document segments likely to contain the answer, and pinpoint the most probable answer within these segments. The primary difference among these systems lies in their approach to pinpointing the answer.
+```python
+class QuestionAnswering:
+    def __init__(self):
+        self.qa_pairs = {
+            "How old is the president of the United States?": "As of 2024, the president is 81 years old.",
+            "Who was the second person on the moon?": "Buzz Aldrin was the second person on the moon.",
+            "When was the storming of the Bastille?": "The storming of the Bastille was on July 14, 1789."
+        }
 
-A **pure IR approach** identifies segments that best match the query and returns them as the answer. The challenge here is to make the segments small enough to be concise answers while still being indexable.
+    def get_answer(self, question):
+        return self.qa_pairs.get(question, "Sorry, I don't know the answer to that question.")
 
-A **pure Natural Language Processing (NLP) approach** matches the parsed and/or semantically interpreted questions against parsed and/or semantically interpreted sentences in candidate documents. The challenge is to perform parsing, interpretation, and matching quickly enough to be practical, given the large volumes of text.
+# Example usage
+qa_system = QuestionAnswering()
+print(qa_system.get_answer("How old is the president of the United States?"))
+print(qa_system.get_answer("Who was the second person on the moon?"))
+print(qa_system.get_answer("When was the storming of the Bastille?"))
+print(qa_system.get_answer("What is the capital of France?"))  # Unknown question
+```
 
-Effectively answering short questions thus requires a combination of IR and NLP techniques. IR techniques narrow down the set of likely candidate segments, while NLP techniques handle the complexities of language, such as paraphrasing and inference.
+### Information Retrieval and NLP Techniques
+This example demonstrates a simple combination of IR and NLP using the `spaCy` library for named entity recognition (NER).
 
-#### Question Types
+```python
+import spacy
 
-Questions can be categorized to facilitate different processing and answer formats. Examples include:
+class IR_NLP_System:
+    def __init__(self):
+        self.documents = [
+            "Joe Biden is the president of the United States.",
+            "Buzz Aldrin was the second person to walk on the moon.",
+            "The storming of the Bastille occurred on July 14, 1789."
+        ]
+        self.nlp = spacy.load("en_core_web_sm")
 
-- **FACTOID:** "How far is it from Earth to the moon?"
-- **LIST:** "List the names of chewing gums."
-- **DEFINITION:** "Who is Vlad the Impaler?"
-- **RELATIONSHIP:** "What is the connection between Trotsky and Lenin?"
-- **SUPERLATIVE:** "What is the largest city on Earth?"
-- **YES OR NO:** "Is Saddam Hussein alive?"
-- **OPINION:** "What do most Americans think of gun control?"
-- **CAUSE AND EFFECT:** "Why did Iraq invade Kuwait?"
+    def find_relevant_documents(self, query):
+        return [doc for doc in self.documents if any(word in doc for word in query.split())]
 
-#### Answer Types
+    def extract_answer(self, documents, query):
+        for doc in documents:
+            nlp_doc = self.nlp(doc)
+            for ent in nlp_doc.ents:
+                if query.lower() in ent.text.lower():
+                    return ent.text
+        return "No relevant information found."
 
-The type of answer sought by the question can be classified as follows:
+# Example usage
+ir_nlp_system = IR_NLP_System()
+query = "president of the United States"
+docs = ir_nlp_system.find_relevant_documents(query)
+answer = ir_nlp_system.extract_answer(docs, query)
+print(f"Query: {query}\nAnswer: {answer}")
+```
 
-- **PERSON:** "Who?"
-- **PLACE:** "Where?"
-- **DATE:** "When?"
-- **NUMBER:** "How many?"
-- **EXPLANATION:** "Why?"
-- **METHOD:** "How?"
+### Question Types and Answer Types
+We'll create a function that identifies the type of question and the expected answer type using simple keyword detection.
 
-These answer types are closely tied to the categories recognized by the system’s named entity recognizer.
+```python
+def identify_question_type(question):
+    if "how far" in question.lower():
+        return "FACTOID", "NUMBER"
+    elif "list" in question.lower():
+        return "LIST", "LIST"
+    elif "who is" in question.lower():
+        return "DEFINITION", "PERSON"
+    elif "connection" in question.lower():
+        return "RELATIONSHIP", "RELATIONSHIP"
+    elif "largest" in question.lower():
+        return "SUPERLATIVE", "PLACE"
+    elif "is" in question.lower():
+        return "YES OR NO", "BOOLEAN"
+    elif "think" in question.lower():
+        return "OPINION", "OPINION"
+    elif "why" in question.lower():
+        return "CAUSE AND EFFECT", "EXPLANATION"
+    else:
+        return "UNKNOWN", "UNKNOWN"
 
-#### Question Focus and Topic
+# Example usage
+question = "Who is Vlad the Impaler?"
+q_type, a_type = identify_question_type(question)
+print(f"Question: {question}\nType: {q_type}\nAnswer Type: {a_type}")
+```
 
-- **Question Focus:** The specific property or entity being sought by the question. For example, in "What is the population of Russia?" the focus is "population."
-- **Question Topic:** The broader object or event the question is about. For example, in "What is the height of the Tower of Babel?" the topic is "Tower of Babel."
+### Question Focus and Topic
+We'll create a function to extract the focus and topic from a question using the `spaCy` library.
 
-#### Harder Questions
+```python
+def extract_focus_and_topic(question):
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(question)
+    focus = [chunk.text for chunk in doc.noun_chunks if chunk.root.dep_ == "pobj"]
+    topic = [ent.text for ent in doc.ents]
+    return focus, topic
 
-Answering factoid questions is relatively straightforward. More challenging tasks involve answering questions where the answers are fluid and require synthesizing information from multiple sources over time. Examples include:
+# Example usage
+question = "What is the population of Russia?"
+focus, topic = extract_focus_and_topic(question)
+print(f"Question: {question}\nFocus: {focus}\nTopic: {topic}")
+```
 
-- "Who is Hannibal?"
-- "Who is Nebuchadnezzar?"
+### Harder Questions and Web-based Question Answering
+Simulating web-based question answering is complex, so we'll simplify it by using predefined responses and keyword matching.
 
-#### Web and Question Answering
+```python
+class WebBasedQA:
+    def __init__(self):
+        self.knowledge_base = {
+            "Hannibal": "Hannibal was a Carthaginian general.",
+            "Nebuchadnezzar": "Nebuchadnezzar was a king of Babylon."
+        }
 
-In TREC (Text Retrieval Conference) and many commercial applications, retrieval is performed against a small, closed collection of texts. The diversity of expression on the web means that popular factoids are likely to be expressed in many different ways. Therefore, leveraging the web to match question formulations can be effective.
+    def web_answer(self, question):
+        for key in self.knowledge_base.keys():
+            if key.lower() in question.lower():
+                return self.knowledge_base[key]
+        return "Sorry, I don't have information on that."
 
-#### The TREC QA Task
+# Example usage
+web_qa = WebBasedQA()
+print(web_qa.web_answer("Who is Hannibal?"))
+print(web_qa.web_answer("Who is Nebuchadnezzar?"))
+```
 
-QA encompasses a range of activities from simple yes/no responses to presenting complex results synthesized from multiple data sources. The TREC task focused on returning text snippets from a large corpus of newspaper articles in response to fact-based short answer questions such as "How many calories are in one liter of milk?"
+### The TREC QA Task
+This example demonstrates a simplified TREC QA task using predefined newspaper articles and a simple search mechanism.
 
-The task was restricted to closed-class questions, but the subject domain was unconstrained as the document set comprised newspaper articles.
+```python
+class TRECQA:
+    def __init__(self):
+        self.articles = [
+            "One liter of milk contains approximately 640 calories.",
+            "The Eiffel Tower is one of the most famous landmarks in Paris."
+        ]
 
-#### QA Test Collection
+    def trec_qa(self, question):
+        for article in self.articles:
+            if any(word in article for word in question.split()):
+                return article
+        return "No relevant articles found."
 
-TREC has improved document retrieval performance by creating appropriate test collections for system development. Building such collections is time-consuming and expensive. One goal of the QA track was to create a reusable QA test collection. However, the judgment sets produced by assessors do not constitute a reusable test collection because the entire answer string is judged. Different QA runs rarely return exactly the same answer strings, making it difficult to determine automatically if differences are significant regarding answer correctness.
+# Example usage
+trec_qa = TRECQA()
+question = "How many calories are in one liter of milk?"
+print(trec_qa.trec_qa(question))
+```
 
-To approximate a solution, a set of Perl string-matching patterns was created from judged correct strings. An answer string matching any pattern for its question is marked correct, otherwise, it is marked incorrect.
+### QA Test Collection
+We’ll create a function that matches answers using string patterns.
+
+```python
+import re
+
+def evaluate_answers(question, provided_answer):
+    correct_patterns = {
+        "How many calories are in one liter of milk?": [r"\b640\b", r"\bcalories\b"],
+    }
+
+    patterns = correct_patterns.get(question, [])
+    for pattern in patterns:
+        if re.search(pattern, provided_answer):
+            return True
+    return False
+
+# Example usage
+question = "How many calories are in one liter of milk?"
+provided_answer = "One liter of milk contains approximately 640 calories."
+print(evaluate_answers(question, provided_answer))  # True
+```
+
+These examples demonstrate the core actions described in the research topic, providing a basic implementation of each concept in Python.
