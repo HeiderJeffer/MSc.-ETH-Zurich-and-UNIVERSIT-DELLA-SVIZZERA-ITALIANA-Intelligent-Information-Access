@@ -1,4 +1,8 @@
-**MSc. ETH Zurich and Università della Svizzera italiana**  
+<body>
+<img src = "https://github-vistors-counter.onrender.com/github?username=https://github.com/HeiderJeffer/MSc.-ETH-Zurich-and-UNIVERSIT-DELLA-SVIZZERA-ITALIANA-Intelligent-Information-Access" alt = "Visitors-Counter"/>
+</body>
+
+**ETH Zurich and Università della Svizzera italiana**  
 **Faculty of Computer Science**  
 **MSc. in Artificial Intelligence**  
 
